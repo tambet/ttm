@@ -2,7 +2,7 @@ require 'activerecord'
 
 task :environment do
   dbconfig = YAML.load(File.read('config/database.yml'))
-  ActiveRecord::Base.establish_connection dbconfig['development']
+  ActiveRecord::Base.establish_connection dbconfig['production']
 end
 
 namespace :db do
