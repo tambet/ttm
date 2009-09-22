@@ -1,0 +1,23 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: ttm_development
+  pool: 5
+  username: ttm
+  password:
+
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: ttm_test
+  pool: 5
+  username: ttm
+  password:
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: ttm_production
+  pool: 5
+  username: ttm
+  password:
