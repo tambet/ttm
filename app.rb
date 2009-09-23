@@ -8,6 +8,6 @@ get '/' do
   'Hello world!'
 end
 
-get 'users' do
+get '/users' do
   User.all.to_xml
 end
