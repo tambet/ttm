@@ -1,5 +1,7 @@
 require 'rubygems'
 require 'sinatra'
+require 'activerecord'
+
 require 'lib/models'
 
 get '/' do
