@@ -9,5 +9,5 @@ get '/' do
 end
 
 get 'users' do
-  'Hello users!'
+  User.all.to_xml
 end
