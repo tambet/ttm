@@ -1,0 +1,9 @@
+# GET 		/users.xml
+# POST 		/users.xml
+# GET 		/users/1.xml
+# PUT 		/users/1.xml
+# DELETE 	/users/1.xml
+
+# GET 		/users/new
+# GET 		/users/1/edit.xml
+
