@@ -1,2 +1,2 @@
-require 'ttm'
+require 'app'
 run Sinatra::Application
