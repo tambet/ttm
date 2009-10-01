@@ -1,4 +1,5 @@
 require 'rubygems'
+require 'crack'
 require 'sinatra'
 require 'activerecord'
 
@@ -13,7 +14,7 @@ get '/users.xml' do
 end
 
 post '/users.xml' do
-  p params # No params with ActiveResource client:(
+  params.merge!(Crack::XML.parse(request.body.read))
   User.create!(params[:user])
 end
 
@@ -22,10 +23,10 @@ get '/users/:id.xml' do
 end
 
 put '/users/:id.xml' do
-  p params # No params with ActiveResource client:(
+  params.merge!(Crack::XML.parse(request.body.read))
   user = User.find(params[:id])
   user.update_attributes(params[:user])
-  user.to_xml
+  #User.find(params[:id]).update_attributes(params[:user])
 end
 
 delete '/users/:id.xml' do

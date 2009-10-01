@@ -5,8 +5,7 @@ class User < ActiveResource::Base
   self.site = "http://localhost:4567/"
 end
 
-# User.find(:all) works
+p User.find(:all)
 
-# Following doesn't work --> name and phone are not passed. Same problem with PUT request
-User.create(:name => 'New User', :phone => '555-555-555')
+p User.create(:name => 'New User', :phone => '555-555-555')
 
