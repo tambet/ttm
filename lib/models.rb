@@ -8,20 +8,31 @@ end
 class Store < ActiveRecord::Base
 end
 
+module RestBase
+  def to_xml(options = {})
+    # This doesn't work with cst_address; use table_name instead!
+    super(options.merge( :except => self.class.name.underscore, :methods => :id))
+  end
+end
+
 class Customer < ActiveRecord::Base
+  include RestBase
   set_table_name "customer"
   set_primary_key "customer"
-  # to_xml(:except => [:customer], :methods => [:id])
+  has_many :contracts, :foreign_key => 'customer'
+  has_many :addresses, :foreign_key => 'customer'
 end
 
 class Contract < ActiveRecord::Base
+  include RestBase
   set_table_name "contract"
   set_primary_key "contract"
-  # to_xml(:except => [:contract], :methods => [:id])
+  belongs_to :customer
 end
 
-class CustomerAddress < ActiveRecord::Base
+class Address < ActiveRecord::Base
+  include RestBase
   set_table_name "cst_address"
   set_primary_key "cst_address"
-  # to_xml(:except => [:cst_address], :methods => [:id])
+  belongs_to :customer
 end

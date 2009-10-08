@@ -52,7 +52,10 @@ end
 
 get '/customers/:id.xml' do
   content_type 'application/xml', :charset => 'utf-8'
-  Customer.find(params[:id]).to_xml
+  customer = Customer.find(params[:id])
+  p customer.addresses
+  p customer.contracts
+  customer.to_xml
 end
 
 put '/customers/:id.xml' do
