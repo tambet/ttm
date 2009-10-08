@@ -27,7 +27,6 @@ put '/users/:id.xml' do
   params.merge!(Crack::XML.parse(request.body.read))
   user = User.find(params[:id])
   user.update_attributes(params[:user])
-  #User.find(params[:id]).update_attributes(params[:user])
 end
 
 delete '/users/:id.xml' do
