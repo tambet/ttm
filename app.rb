@@ -10,6 +10,7 @@ get '/' do
 end
 
 get '/users.xml' do
+  content_type 'application/xml', :charset => 'utf-8'
   User.all.to_xml
 end
 
