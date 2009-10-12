@@ -12,20 +12,20 @@ class Customer < ActiveRecord::Base
   include RestBase
   set_table_name "customer"
   set_primary_key "customer"
-  has_many :contracts, :foreign_key => 'customer'
-  has_many :addresses, :foreign_key => 'customer'
+  has_many :contracts, :foreign_key => 'customer', :dependent => :destroy
+  has_many :addresses, :foreign_key => 'customer', :dependent => :destroy
 end
 
 class Contract < ActiveRecord::Base
   include RestBase
   set_table_name "contract"
   set_primary_key "contract"
-  belongs_to :customer
+  belongs_to :owner, :class_name => "Customer", :foreign_key => "customer"
 end
 
 class Address < ActiveRecord::Base
   include RestBase
   set_table_name "cst_address"
   set_primary_key "cst_address"
-  belongs_to :customer
+  belongs_to :owner, :class_name => "Customer", :foreign_key => "customer"
 end
