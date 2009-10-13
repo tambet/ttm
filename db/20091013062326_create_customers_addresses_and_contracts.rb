@@ -1,8 +1,5 @@
 class CreateCustomersAddressesAndContracts < ActiveRecord::Migration
   def self.up
-    drop_table :stores
-    drop_table :users
-
     create_table "contract", :primary_key => "contract", :force => true do |t|
       t.integer  "contract_manager",     :limit => 30,  :precision => 30, :scale => 0
       t.integer  "contract_status_type", :limit => 30,  :precision => 30, :scale => 0
