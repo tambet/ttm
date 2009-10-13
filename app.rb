@@ -11,6 +11,7 @@ before do
 end
 
 get '/' do
+  content_type 'text/html', :charset => 'utf-8'
   'REST API List'
 end
 
