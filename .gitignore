@@ -1,0 +1,8 @@
+bin/
+#vendor/gems/
+#!vendor/gems/cache/
+
+vendor/gems/doc
+vendor/gems/gems
+vendor/gems/specifications
+vendor/gems/environment.rb
