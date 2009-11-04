@@ -3,6 +3,8 @@ require 'crack'
 require 'sinatra'
 require 'activerecord'
 
+require 'vendor/gems/environment'
+Bundler.require_env
 require 'lib/models'
 
 before do
