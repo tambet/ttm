@@ -17,7 +17,7 @@ class Customer < ActiveRecord::Base
 
   protected
   def broadcast
-    Minion.enqueue('ttm-1.customer', :customer => self.to_xml)
+    Minion.enqueue("#{INT_KEY}.customer", :customer => self.to_xml)
   end
 end
 
