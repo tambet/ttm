@@ -1,11 +1,12 @@
+$:.unshift(File.join(File.dirname(__FILE__), "lib"))
 require 'rubygems'
-require 'crack'
 require 'sinatra'
-require 'activerecord'
 
-require 'vendor/gems/environment'
-Bundler.require_env
-require 'lib/models'
+require 'config/environment'
+require 'models'
+
+#require 'vendor/gems/environment'
+#Bundler.require_env
 
 before do
   content_type 'application/xml', :charset => 'utf-8'
@@ -24,7 +25,8 @@ get '/customers.xml' do
 end
 
 post '/customers.xml' do
-  Customer.create!(params[:customer])
+  customer = Customer.create!(params[:customer])
+  customer.to_xml
 end
 
 get '/customers/:id.xml' do
@@ -48,7 +50,8 @@ get '/customers/:customer_id/addresses.xml' do
 end
 
 post '/customers/:customer_id/addresses.xml' do
-  Address.create(params[:address])
+  address = Address.create(params[:address])
+  address.to_xml
 end
 
 get '/customers/:customer_id/addresses/:id.xml' do

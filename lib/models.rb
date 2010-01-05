@@ -1,6 +1,4 @@
-dbconfig = YAML.load(File.read('config/database.yml'))
-ActiveRecord::Base.establish_connection dbconfig['production']
-ActiveRecord::Base.logger = Logger.new(STDOUT)
+require 'config/environment' 
 
 module RestBase
   def to_xml(options = {})
@@ -14,6 +12,13 @@ class Customer < ActiveRecord::Base
   set_primary_key "customer"
   has_many :contracts, :foreign_key => 'customer', :dependent => :destroy
   has_many :addresses, :foreign_key => 'customer', :dependent => :destroy
+
+  after_create :broadcast
+
+  protected
+  def broadcast
+    Minion.enqueue('ttm-1.customer', :customer => self.to_xml)
+  end
 end
 
 class Contract < ActiveRecord::Base
