@@ -8,6 +8,8 @@ require 'models'
 #require 'vendor/gems/environment'
 #Bundler.require_env
 
+set :logging, false
+
 before do
   content_type 'application/xml', :charset => 'utf-8'
   params.merge!(Crack::XML.parse(request.body.read))
