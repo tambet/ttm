@@ -50,8 +50,8 @@ get '/customers/:customer_id/addresses.xml' do
 end
 
 post '/customers/:customer_id/addresses.xml' do
-  address = Address.create(params[:address])
-  address.to_xml
+  customer = Customer.find(params[:customer_id])
+  customer.addresses.create(params[:address]).to_xml
 end
 
 get '/customers/:customer_id/addresses/:id.xml' do
@@ -66,3 +66,29 @@ end
 delete '/customers/:customer_id/addresses/:id.xml' do
   Address.find(params[:id]).destroy
 end
+
+#================= Contracts API =================#
+
+get '/customers/:customer_id/contracts.xml' do
+  Customer.find(params[:customer_id]).contracts.to_xml
+end
+
+post '/customers/:customer_id/contracts.xml' do
+  customer = Customer.find(params[:customer_id])
+  customer.contracts.create(params[:contract]).to_xml
+end
+
+get '/customers/:customer_id/contracts/:id.xml' do
+  Contract.find(params[:id]).to_xml
+end
+
+put '/customers/:customer_id/contracts/:id.xml' do
+  p params
+  contract = Contract.find(params[:id])
+  contract.update_attributes(params[:contract])
+end
+
+delete '/customers/:customer_id/contracts/:id.xml' do
+  Contract.find(params[:id]).destroy
+end
+
