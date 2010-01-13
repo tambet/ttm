@@ -13,10 +13,10 @@ class Customer < ActiveRecord::Base
   set_primary_key "customer"
   has_many :contracts, :foreign_key => 'customer', :dependent => :destroy
   has_many :addresses, :foreign_key => 'customer', :dependent => :destroy
-  after_create :broadcast
+  after_create :broadcast, :unless => :imported?
   
   def self.remote_find_or_create(params)
-    customer = find_or_create_by_identity_code(params[:identity_code])
+    customer = find_or_initialize_by_identity_code(params[:identity_code])
     params[:cst_state_type] = STATUS_IMPORTED
     customer.update_attributes(params)
   end
@@ -27,7 +27,7 @@ class Customer < ActiveRecord::Base
 
   protected
   def broadcast
-    Minion.enqueue("#{INT_KEY}.customer", :customer => self.to_xml) unless imported?
+    Minion.enqueue("#{INT_KEY}.customer", :customer => self.to_xml)
   end
 end
 
