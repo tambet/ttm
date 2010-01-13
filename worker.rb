@@ -1,4 +1,5 @@
 require 'config/environment'
+require 'lib/models'
 include Minion
 
 job "#{APP_KEY}.customer" do |args|
