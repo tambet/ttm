@@ -12,6 +12,11 @@ class Customer < ActiveRecord::Base
   set_primary_key "customer"
   has_many :contracts, :foreign_key => 'customer', :dependent => :destroy
   has_many :addresses, :foreign_key => 'customer', :dependent => :destroy
+  
+  def self.remote_find_or_create(params)
+    customer = find_or_create_by_identity_code(params[:identity_code])
+    customer.update_attributes(params)
+  end
 
   after_create :broadcast
 

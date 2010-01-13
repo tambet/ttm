@@ -1,3 +1,4 @@
 bin/
+log/*
 vendor/gems/*
 !vendor/gems/cache/
