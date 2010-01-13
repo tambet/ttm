@@ -8,21 +8,26 @@ end
 
 class Customer < ActiveRecord::Base
   include RestBase
+  STATUS_IMPORTED = 1
   set_table_name "customer"
   set_primary_key "customer"
   has_many :contracts, :foreign_key => 'customer', :dependent => :destroy
   has_many :addresses, :foreign_key => 'customer', :dependent => :destroy
+  after_create :broadcast
   
   def self.remote_find_or_create(params)
     customer = find_or_create_by_identity_code(params[:identity_code])
+    params[:cst_state_type] = STATUS_IMPORTED
     customer.update_attributes(params)
   end
-
-  after_create :broadcast
+  
+  def imported?
+    cst_state_type == STATUS_IMPORTED
+  end
 
   protected
   def broadcast
-    Minion.enqueue("#{INT_KEY}.customer", :customer => self.to_xml)
+    Minion.enqueue("#{INT_KEY}.customer", :customer => self.to_xml) unless imported?
   end
 end
 

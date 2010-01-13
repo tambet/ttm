@@ -85,7 +85,6 @@ get '/customers/:customer_id/contracts/:id.xml' do
 end
 
 put '/customers/:customer_id/contracts/:id.xml' do
-  p params
   contract = Contract.find(params[:id])
   contract.update_attributes(params[:contract])
 end
